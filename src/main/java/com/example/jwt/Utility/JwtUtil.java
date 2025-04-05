@@ -9,7 +9,7 @@ import java.util.Date;
 
 @Component
 public class JwtUtil {
-    private static final String SECRET_KEY = "your_secret_key"; // Change it to a strong key
+    private static final String SECRET_KEY = "mysupersecuresecretkeyfghsdfhskehkjhcjhzuuurhefrkjshkjdhfskjdhfkjshfh1234567890"; // Change it to a strong key
 
     public String generateToken(String username, Role role) {
         return Jwts.builder()

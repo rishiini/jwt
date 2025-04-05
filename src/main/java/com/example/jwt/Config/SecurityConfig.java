@@ -26,15 +26,17 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(csrf -> csrf.disable()) // Disable CSRF if needed
-                .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/public/**").permitAll()  // Allow public URLs
-                        .anyRequest().authenticated()  // Secure all other URLs
-                )
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // Make session stateless
-                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class) // Add JWT filter
-                .formLogin(withDefaults())  // Enable form login
-                .httpBasic(withDefaults());
+                .authorizeHttpRequests((requests) -> {
+                            try {
+                                requests
+                                        .anyRequest().permitAll()
+                                        .and().cors().disable()
+                                        .csrf().disable();
+                            } catch (Exception e) {
+                                throw new RuntimeException(e);
+                            }
+                        }
+                );
 
         return http.build();
     }

@@ -21,8 +21,10 @@ public class AuthService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public String register(User user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+    public String register(String username, String password) {
+        User user = new User();
+        user.setUsername(username);
+        user.setPassword(passwordEncoder.encode(password));
         userRepository.save(user);
         return "User registered successfully!";
     }

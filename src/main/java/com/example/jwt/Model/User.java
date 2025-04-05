@@ -22,6 +22,12 @@ public class User implements UserDetails {
     @Column(unique = true, nullable = false)
     private String username;
 
+    @Column(nullable = false)
+    private String password;
+
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
     public Long getId() {
         return id;
     }
@@ -54,11 +60,7 @@ public class User implements UserDetails {
         this.role = role;
     }
 
-    @Column(nullable = false)
-    private String password;
 
-    @Enumerated(EnumType.STRING)
-    private Role role;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
